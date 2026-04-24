@@ -376,34 +376,6 @@ class _CustomerHomePageState extends State<CustomerHomePage>
                           ),
                         ),
                         const SizedBox(height: 18),
-                        // --- New Features Navigation ---
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white.withOpacity(0.10),
-                              foregroundColor: Colors.cyanAccent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              elevation: 0,
-                            ),
-                            icon: const Icon(
-                              Icons.history,
-                              color: Colors.cyanAccent,
-                            ),
-                            label: const Text(
-                              'View Scan History',
-                              style: TextStyle(
-                                color: Colors.cyanAccent,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            onPressed: () => context.go('/customer/history'),
-                          ),
-                        ),
                         const SizedBox(height: 10),
                         SizedBox(
                           width: double.infinity,

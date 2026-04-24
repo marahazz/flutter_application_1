@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:autonexa/core/constants/app_constants.dart';
-import 'package:autonexa/presentation/pages/welcome_page.dart';
+import 'package:autonexa/presentation/pages/premium_welcome_page.dart';
 import 'package:autonexa/presentation/pages/auth_page.dart';
-import 'package:autonexa/presentation/pages/customer_home_page.dart';
 import 'package:autonexa/presentation/pages/admin_dashboard_page.dart';
 import 'package:autonexa/presentation/pages/repair_shop_dashboard_page.dart';
 import 'package:autonexa/presentation/pages/customer_upload_page.dart';
@@ -24,24 +23,101 @@ import 'package:autonexa/presentation/pages/workshop_dashboard_page.dart';
 import 'package:autonexa/presentation/pages/quote_request_page.dart';
 import 'package:autonexa/presentation/pages/workshop_comparison_page.dart';
 import 'package:autonexa/presentation/pages/enterprise_dashboard_page.dart';
+import 'package:autonexa/presentation/pages/car_info_screen.dart';
+import 'package:autonexa/presentation/pages/damage_capture_screen.dart';
+import 'package:autonexa/presentation/pages/processing_screen.dart';
+import 'package:autonexa/presentation/pages/results_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: AppRoutes.welcome,
+
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
       path: AppRoutes.welcome,
-      builder: (context, state) => const WelcomePage(),
+      builder: (context, state) => const PremiumWelcomePage(),
     ),
+
+    // 🚗 Damage Detection Flow Routes
+    GoRoute(
+      path: '/car-info',
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const CarInfoScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1, 0),
+              end: Offset.zero,
+            ).animate(CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOut,
+            )),
+            child: child,
+          );
+        },
+      ),
+    ),
+    GoRoute(
+      path: '/damage-capture',
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const DamageCaptureScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1, 0),
+              end: Offset.zero,
+            ).animate(CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeInOut,
+            )),
+            child: child,
+          );
+        },
+      ),
+    ),
+    GoRoute(
+      path: '/processing',
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const ProcessingScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    ),
+    GoRoute(
+      path: '/results',
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: const ResultsScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 0.1),
+              end: Offset.zero,
+            ).animate(CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOutCubic,
+            )),
+            child: FadeTransition(opacity: animation, child: child),
+          );
+        },
+      ),
+    ),
+
     GoRoute(
       path: AppRoutes.auth,
       builder: (context, state) => const AuthPage(),
     ),
+
+    // 🔥🔥 هذا كمان مهم — يمنع الرجوع للشكل القديم
     GoRoute(
       path: AppRoutes.customerHome,
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
-        child: const CustomerHomePage(),
+        child: const EnterpriseDashboardPage(), // 👈 بدل CustomerHomePage
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
         },
@@ -57,6 +133,7 @@ final GoRouter appRouter = GoRouter(
         ),
       ],
     ),
+
     GoRoute(path: '/scan', builder: (context, state) => const ScanPage()),
     GoRoute(
       path: '/ai-damage',
@@ -81,19 +158,23 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/ai-chat', builder: (context, state) => const AIChatPage()),
     GoRoute(
       path: '/workshop-comparison',
-      builder: (context, state) => const WorkshopComparisonPage(workshops: [],),
+      builder: (context, state) =>
+          const WorkshopComparisonPage(workshops: []),
     ),
     GoRoute(
       path: '/workshop-reviews',
-      builder: (context, state) => const WorkshopReviewPage(reviews: [],),
+      builder: (context, state) =>
+          const WorkshopReviewPage(reviews: []),
     ),
     GoRoute(
       path: '/book-appointment',
-      builder: (context, state) => const BookAppointmentPage(workshopName: '',),
+      builder: (context, state) =>
+          const BookAppointmentPage(workshopName: ''),
     ),
     GoRoute(
       path: '/export-report',
-      builder: (context, state) => const ExportReportPage(reportText: '',),
+      builder: (context, state) =>
+          const ExportReportPage(reportText: ''),
     ),
     GoRoute(
       path: '/settings',
@@ -138,9 +219,9 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => QuoteRequestPage(
         damageSummary:
             state.extra is Map &&
-                (state.extra as Map).containsKey('damageSummary')
-            ? (state.extra as Map)['damageSummary']
-            : 'No summary provided.',
+                    (state.extra as Map).containsKey('damageSummary')
+                ? (state.extra as Map)['damageSummary']
+                : 'No summary provided.',
       ),
     ),
   ],

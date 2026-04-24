@@ -1,0 +1,20 @@
+{
+  "@@locale": "ar",
+  "appName": "أوتونيكسا",
+  "tagline": "تقييم أضرار المركبات وتقدير تكلفة الإصلاح",
+  "commandCenter": "مركز التحكم",
+  "start": "ابدأ",
+
+  "viewScanHistory": "عرض سجل الفحوصات",
+  "aiChatAssistant": "مساعد الدردشة الذكي",
+  "workshopDashboard": "لوحة تحكم الورشة",
+  "bookAppointment": "حجز موعد",
+  "workshopReviews": "تقييمات الورش",
+  "compareWorkshops": "مقارنة الورش",
+  "exportShareReport": "تصدير/مشاركة التقرير",
+  "settings": "الإعدادات",
+
+  "langEnShort": "EN",
+  "langArShort": "AR"
+}
+

@@ -1,0 +1,20 @@
+{
+  "@@locale": "en",
+  "appName": "AUTONEXA",
+  "tagline": "Vehicle Damage Assessment & Cost Estimation",
+  "commandCenter": "Command Center",
+  "start": "Start",
+
+  "viewScanHistory": "View Scan History",
+  "aiChatAssistant": "AI Chat Assistant",
+  "workshopDashboard": "Workshop Dashboard",
+  "bookAppointment": "Book Appointment",
+  "workshopReviews": "Workshop Reviews",
+  "compareWorkshops": "Compare Workshops",
+  "exportShareReport": "Export/Share Report",
+  "settings": "Settings",
+
+  "langEnShort": "EN",
+  "langArShort": "AR"
+}
+

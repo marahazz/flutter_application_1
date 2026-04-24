@@ -1,46 +1,53 @@
-// ignore_for_file: deprecated_member_use
-
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class AiDamagePage extends StatelessWidget {
   const AiDamagePage({super.key});
 
-  Widget card(IconData icon, String title, String sub) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10),
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(.06),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: const Color(0xFF00FFE0).withOpacity(.3),
-            ),
-          ),
-          child: Row(
+  Widget featureCard({
+    required IconData icon,
+    required String title,
+    required String description,
+  }) {
+    return SizedBox(
+      width: 520,
+      child: Card(
+        color: const Color(0xFFF8FAFC),
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 26),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, color: const Color(0xFF00FFE0)),
-              const SizedBox(width: 14),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18)),
-                  Text(sub,
-                      style:
-                          const TextStyle(color: Colors.white70, fontSize: 13)),
-                ],
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: const Color(0xFF3B82F6)),
+                ),
+                child: Icon(icon, color: const Color(0xFF3B82F6), size: 28),
               ),
-              const Spacer(),
-              const Icon(Icons.arrow_forward_ios,
-                  color: Colors.white70, size: 14),
+              const SizedBox(height: 24),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF0F172A),
+                ),
+              ),
+              const SizedBox(height: 14),
+              const Divider(color: Color(0xFFCBD5E1), thickness: 1),
+              const SizedBox(height: 14),
+              Text(
+                description,
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: Color(0xFF64748B),
+                  height: 1.5,
+                ),
+              ),
             ],
           ),
         ),
@@ -51,50 +58,49 @@ class AiDamagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF111417),
+      backgroundColor: const Color(0xFF0F172A),
       body: Center(
-        child: SizedBox(
-          width: 420,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-
-              const Text(
-                "Welcome Back",
-                style: TextStyle(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1200),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'AUTONEXA Command Center',
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 46,
-                    fontWeight: FontWeight.w900),
-              ),
-
-              const SizedBox(height: 10),
-
-              const Text(
-                "Smart Vehicle Analysis",
-                style: TextStyle(
-                    color: Color(0xFF70FFE8),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 6),
-
-              const Text(
-                "Choose your next action",
-                style: TextStyle(color: Colors.white54),
-              ),
-
-              const SizedBox(height: 40),
-
-              card(Icons.qr_code_scanner,
-                  "Scan Vehicle", "Upload or capture damage image"),
-
-              card(Icons.analytics,
-                  "AI Damage Detection", "Run instant smart analysis"),
-
-              card(Icons.build_circle,
-                  "Repair Cost Estimate", "Get repair pricing"),
-            ],
+                    fontSize: 32,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Quick access to your most important tools',
+                  style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 24,
+                  runSpacing: 24,
+                  children: [
+                    featureCard(
+                      icon: Icons.history_edu_outlined,
+                      title: 'View Scan History',
+                      description: 'Review past assessments and reports',
+                    ),
+                    featureCard(
+                      icon: Icons.chat_bubble_outline,
+                      title: 'AI Chat Assistant',
+                      description: 'Ask questions and get intelligent guidance',
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
